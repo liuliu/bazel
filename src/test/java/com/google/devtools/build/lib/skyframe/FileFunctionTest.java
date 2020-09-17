@@ -414,9 +414,9 @@ public class FileFunctionTest {
             rootedPath(""),
             RootedPath.toRootedPath(root, PathFragment.create("/")),
             RootedPath.toRootedPath(root, PathFragment.create("/output_base")),
-            RootedPath.toRootedPath(root, PathFragment.create("/output_base/external")),
-            RootedPath.toRootedPath(root, PathFragment.create("/output_base/external/a")),
-            RootedPath.toRootedPath(root, PathFragment.create("/output_base/external/a/b")));
+            RootedPath.toRootedPath(root, PathFragment.create("/output_base/__external__")),
+            RootedPath.toRootedPath(root, PathFragment.create("/output_base/__external__/a")),
+            RootedPath.toRootedPath(root, PathFragment.create("/output_base/__external__/a/b")));
   }
 
   @Test

@@ -243,7 +243,7 @@ public class RepositoryDelegatorTest extends FoundationTestCase {
     EvaluationResult<SkyValue> result = driver.evaluate(ImmutableList.of(key), evaluationContext);
     assertThat(result.hasError()).isFalse();
     RepositoryDirectoryValue repositoryDirectoryValue = (RepositoryDirectoryValue) result.get(key);
-    Path expectedPath = scratch.dir("/outputbase/external/foo");
+    Path expectedPath = scratch.dir("/outputbase/__external__/foo");
     Path actualPath = repositoryDirectoryValue.getPath();
     assertThat(actualPath).isEqualTo(expectedPath);
     assertThat(actualPath.isSymbolicLink()).isTrue();

@@ -139,7 +139,8 @@ public class WorkspaceBlackBoxTest extends AbstractBlackBoxTest {
     assertThat(outFile.toFile().exists()).isTrue();
     List<String> lines = PathUtils.readFile(outFile);
     assertThat(lines.size()).isEqualTo(1);
-    assertThat(Paths.get(lines.get(0)).endsWith(Paths.get("external/relative/relative"))).isTrue();
+    assertThat(Paths.get(lines.get(0)).endsWith(Paths.get("__external__/relative/relative")))
+        .isTrue();
 
     bazel.build("@relative2//:debug_me");
     bazel.build("@absolute//:debug_me");

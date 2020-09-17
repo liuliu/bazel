@@ -349,7 +349,7 @@ function test_download_then_extract() {
   ensure_contains_exactly 'output: "out_dir"' 1
   ensure_contains_exactly 'strip_prefix: "server_dir/"' 1
 
-  ensure_output_contains_exactly_once "external/repo/out_dir/download_then_extract.txt" "This is one file"
+  ensure_output_contains_exactly_once "__external__/repo/out_dir/download_then_extract.txt" "This is one file"
 }
 
 function test_download_then_extract_tar() {
@@ -386,7 +386,7 @@ function test_download_then_extract_tar() {
   ensure_contains_exactly 'output: "out_dir"' 1
   ensure_contains_exactly 'strip_prefix: "data_dir/"' 1
 
-  ensure_output_contains_exactly_once "external/repo/out_dir/download_then_extract_tar.txt" "Experiment with tar"
+  ensure_output_contains_exactly_once "__external__/repo/out_dir/download_then_extract_tar.txt" "Experiment with tar"
 }
 
 function test_download_and_extract() {
@@ -417,7 +417,7 @@ function test_download_and_extract() {
   ensure_contains_exactly 'type: "zip"' 1
   ensure_contains_exactly 'strip_prefix: "server_dir/"' 1
 
-  ensure_output_contains_exactly_once "external/repo/out_dir/download_and_extract.txt" "This is one file"
+  ensure_output_contains_exactly_once "__external__/repo/out_dir/download_and_extract.txt" "This is one file"
 }
 
 function test_file() {

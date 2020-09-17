@@ -413,7 +413,7 @@ public final class StarlarkRuleContextTest extends BuildViewTestCase {
     reporter.removeHandler(failFastHandler);
     getConfiguredTarget("@r//:cclib");
     assertContainsEvent(
-        "/external/r/BUILD:1:11: Label '@r//:sub/my_sub_lib.h' is invalid because "
+        "/__external__/r/BUILD:1:11: Label '@r//:sub/my_sub_lib.h' is invalid because "
             + "'@r//sub' is a subpackage; perhaps you meant to put the colon here: "
             + "'@r//sub:my_sub_lib.h'?");
   }

@@ -1214,7 +1214,7 @@ EOF
   expect_log "  PWD/first/path/foo.bzl:4"
   expect_log "  PWD/another/directory/bar.bzl:4"
   expect_log "Repository rule http_archive defined at:"
-  expect_log "  TEST_TMPDIR/.*/external/bazel_tools/tools/build_defs/repo/http.bzl:"
+  expect_log "  TEST_TMPDIR/.*/__external__/bazel_tools/tools/build_defs/repo/http.bzl:"
 }
 
 # Regression test for #11040.

@@ -998,10 +998,10 @@ EOF
 
   bazel run @foo//:bar >& $TEST_log || fail "Execution of @foo//:bar failed"
   output_base=$(bazel info output_base)
-  test -x "${output_base}/external/foo/test.sh" || fail "test.sh is not executable"
-  test -x "${output_base}/external/foo/test2.sh" || fail "test2.sh is not executable"
-  test ! -x "${output_base}/external/foo/BUILD" || fail "BUILD is executable"
-  test ! -x "${output_base}/external/foo/test2" || fail "test2 is executable"
+  test -x "${output_base}/__external__/foo/test.sh" || fail "test.sh is not executable"
+  test -x "${output_base}/__external__/foo/test2.sh" || fail "test2.sh is not executable"
+  test ! -x "${output_base}/__external__/foo/BUILD" || fail "BUILD is executable"
+  test ! -x "${output_base}/__external__/foo/test2" || fail "test2 is executable"
 }
 
 function test_starlark_repository_download() {
@@ -1037,15 +1037,15 @@ EOF
 
   output_base="$(bazel info output_base)"
   # Test download
-  test -e "${output_base}/external/foo/download_with_sha256.txt" \
+  test -e "${output_base}/__external__/foo/download_with_sha256.txt" \
     || fail "download_with_sha256.txt is not downloaded"
-  test -e "${output_base}/external/foo/download_executable_file.sh" \
+  test -e "${output_base}/__external__/foo/download_executable_file.sh" \
     || fail "download_executable_file.sh is not downloaded"
   # Test download
-  diff "${output_base}/external/foo/download_with_sha256.txt" \
+  diff "${output_base}/__external__/foo/download_with_sha256.txt" \
     "${download_with_sha256}" >/dev/null \
     || fail "download_with_sha256.txt is not downloaded successfully"
-  diff "${output_base}/external/foo/download_executable_file.sh" \
+  diff "${output_base}/__external__/foo/download_executable_file.sh" \
     "${download_executable_file}" >/dev/null \
     || fail "download_executable_file.sh is not downloaded successfully"
 
@@ -1055,9 +1055,9 @@ EOF
   fi
 
   # Test executable
-  test ! -x "${output_base}/external/foo/download_with_sha256.txt" \
+  test ! -x "${output_base}/__external__/foo/download_with_sha256.txt" \
     || fail "download_with_sha256.txt is executable"
-  test -x "${output_base}/external/foo/download_executable_file.sh" \
+  test -x "${output_base}/__external__/foo/download_executable_file.sh" \
     || fail "download_executable_file.sh is not executable"
 }
 
@@ -1126,13 +1126,13 @@ EOF
         >& $TEST_log && shutdown_server || fail "Execution of @foo//:all failed"
 
   output_base="$(bazel info output_base)"
-  grep "no_sha_return $not_provided_sha256" $output_base/external/foo/returned_shas.txt \
+  grep "no_sha_return $not_provided_sha256" $output_base/__external__/foo/returned_shas.txt \
       || fail "expected calculated sha256 $not_provided_sha256"
-  grep "with_sha_return $provided_sha256" $output_base/external/foo/returned_shas.txt \
+  grep "with_sha_return $provided_sha256" $output_base/__external__/foo/returned_shas.txt \
       || fail "expected provided sha256 $provided_sha256"
-  grep "compressed_with_sha_return $compressed_provided_sha256" $output_base/external/foo/returned_shas.txt \
+  grep "compressed_with_sha_return $compressed_provided_sha256" $output_base/__external__/foo/returned_shas.txt \
       || fail "expected provided sha256 $compressed_provided_sha256"
-  grep "compressed_no_sha_return $compressed_not_provided_sha256" $output_base/external/foo/returned_shas.txt \
+  grep "compressed_no_sha_return $compressed_not_provided_sha256" $output_base/__external__/foo/returned_shas.txt \
       || fail "expected compressed calculated sha256 $compressed_not_provided_sha256"
 }
 
@@ -1192,7 +1192,7 @@ EOF
 
   output_base="$(bazel info output_base)"
   # Test download
-  test -e "${output_base}/external/foo/whatever.txt" \
+  test -e "${output_base}/__external__/foo/whatever.txt" \
     || fail "whatever.txt is not downloaded"
 }
 
@@ -1245,26 +1245,26 @@ EOF
 
   output_base="$(bazel info output_base)"
   # Test cleanup
-  test -e "${output_base}/external/foo/server_dir/download_and_extract1.tar.gz" \
+  test -e "${output_base}/__external__/foo/server_dir/download_and_extract1.tar.gz" \
     && fail "temp file was not deleted successfully" || true
-  test -e "${output_base}/external/foo/server_dir/download_and_extract2.zip" \
+  test -e "${output_base}/__external__/foo/server_dir/download_and_extract2.zip" \
     && fail "temp file was not deleted successfully" || true
-  test -e "${output_base}/external/foo/server_dir/download_and_extract3.zip" \
+  test -e "${output_base}/__external__/foo/server_dir/download_and_extract3.zip" \
     && fail "temp file was not deleted successfully" || true
   # Test download_and_extract
-  diff "${output_base}/external/foo/server_dir/download_and_extract1.txt" \
+  diff "${output_base}/__external__/foo/server_dir/download_and_extract1.txt" \
     "${file_prefix}1.txt" >/dev/null \
     || fail "download_and_extract1.tar.gz was not extracted successfully"
-  diff "${output_base}/external/foo/some/path/server_dir/download_and_extract1.txt" \
+  diff "${output_base}/__external__/foo/some/path/server_dir/download_and_extract1.txt" \
     "${file_prefix}1.txt" >/dev/null \
     || fail "download_and_extract1.tar.gz was not extracted successfully in some/path"
-  diff "${output_base}/external/foo/server_dir/download_and_extract2.txt" \
+  diff "${output_base}/__external__/foo/server_dir/download_and_extract2.txt" \
     "${file_prefix}2.txt" >/dev/null \
     || fail "download_and_extract2.zip was not extracted successfully"
-  diff "${output_base}/external/foo/server_dir/download_and_extract3.txt" \
+  diff "${output_base}/__external__/foo/server_dir/download_and_extract3.txt" \
     "${file_prefix}3.txt" >/dev/null \
     || fail "download_and_extract3.zip was not extracted successfully"
-  diff "${output_base}/external/foo/other/path/server_dir/download_and_extract3.txt" \
+  diff "${output_base}/__external__/foo/other/path/server_dir/download_and_extract3.txt" \
     "${file_prefix}3.txt" >/dev/null \
     || fail "download_and_extract3.tar.gz was not extracted successfully"
 }

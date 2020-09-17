@@ -18,7 +18,8 @@ import com.google.devtools.build.lib.vfs.PathFragment;
 /** Constants associated with {@code Label}s */
 public class LabelConstants {
   /** The subdirectory under the output base which contains external repositories. */
-  public static final PathFragment EXTERNAL_REPOSITORY_LOCATION = PathFragment.create("external");
+  public static final PathFragment EXTERNAL_REPOSITORY_LOCATION =
+      PathFragment.create("__external__");
 
   /**
    * The name of the package that contains the targets representing external repositories. Only

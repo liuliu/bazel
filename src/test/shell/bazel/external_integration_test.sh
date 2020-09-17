@@ -290,7 +290,7 @@ function test_sha256_caching() {
 
 function test_cached_across_server_restart() {
   http_archive_helper zip_up
-  local marker_file=$(bazel info output_base)/external/\@endangered.marker
+  local marker_file=$(bazel info output_base)/__external__/\@endangered.marker
   echo "<MARKER>"
   cat "${marker_file}"
   echo "</MARKER>"
@@ -616,7 +616,7 @@ bind(name = 'mongoose', actual = '@endangered//jar')
 EOF
 
   output_base=$(bazel info output_base)
-  external_dir=$output_base/external
+  external_dir=$output_base/__external__
   needle=endangered
   [[ -d $external_dir/$needle ]] \
       && fail "$needle already exists in $external_dir" || true
@@ -877,7 +877,7 @@ http_archive(
     sha256 = "$sha256",
 )
 EOF
-  external_dir=$(bazel info output_base)/external
+  external_dir=$(bazel info output_base)/__external__
   for i in $(seq 1 3); do
     cp local_ws WORKSPACE
     bazel build @repo//:all &> $TEST_log || fail "Build failed"
@@ -2260,7 +2260,7 @@ EOF
   expect_log "  WRKDIR/path/to/main/repos.bzl:5"
   expect_log "  WRKDIR/path/to/main/foo.bzl:4"
   expect_log "Repository rule http_archive defined at:"
-  expect_log "  TEST_TMPDIR/.*/external/bazel_tools/tools/build_defs/repo/http.bzl:"
+  expect_log "  TEST_TMPDIR/.*/__external__/bazel_tools/tools/build_defs/repo/http.bzl:"
 }
 
 function test_circular_definition_reported() {
