@@ -102,7 +102,6 @@ def _compile_cc_file(repository_ctx, src_name, out_name):
         "-arch",
         "x86_64",
         "-Wl,-no_adhoc_codesign",
-        "-Wl,-no_uuid",
         "-O3",
         "-o",
         out_name,
