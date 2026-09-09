@@ -61,7 +61,7 @@ public enum ApplePlatform implements ApplePlatformApi {
   private static final ImmutableSet<String> TVOS_DEVICE_TARGET_CPUS =
       ImmutableSet.of("tvos_arm64");
   private static final ImmutableSet<String> CATALYST_TARGET_CPUS =
-      ImmutableSet.of("catalyst_x86_64");
+      ImmutableSet.of("catalyst_arm64", "catalyst_x86_64");
   private static final ImmutableSet<String> MACOS_TARGET_CPUS =
       ImmutableSet.of("darwin_x86_64", "darwin_arm64", "darwin_arm64e");
 
